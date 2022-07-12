@@ -1,0 +1,37 @@
+from news.models import User
+User.objects.create_user('username1')
+User.objects.create_user('username2')
+
+from news.models import Author
+author1 = Author.objects.create(user_id = 1)
+author2 = Author.objects.create(user_id = 2)
+
+from news.models import Category
+category1 = Category.objects.create(category_name = 'Спорт')
+category2 = Category.objects.create(category_name = 'Политика')
+category3 = Category.objects.create(category_name = 'Образование')
+category4 = Category.objects.create(category_name = 'Медицина')
+
+from news.models import Post
+article1 = Post.objects.create(author_id = 2, article_or_news = True, header = 'Месси', a_or_n_text = 'просто текст для примера')
+article2 = Post.objects.create(author_id = 2, article_or_news = True, header = 'Социальные выплаты', a_or_n_text = 'просто текст для примера 2')
+news1 = Post.objects.create(author_id = 3, article_or_news = False, header = 'МГУ', a_or_n_text = 'просто текст для примера 3')
+
+article1.category.set('1')
+article2.category.set('1' '4')
+news1.category.set('3')
+
+from news.models import Comment
+comment1 = Comment.objects.create(post_id = 1, user_id = 1, comment = 'Отлично')
+comment2 = Comment.objects.create(post_id = 2, user_id = 2, comment = 'Хорошо')
+comment3 = Comment.objects.create(post_id = 3, user_id = 1, comment = 'Не очень')
+comment4 = Comment.objects.create(post_id = 3, user_id = 2, comment = 'Ужас')
+
+article1.like()
+article2.like()
+news1.dislike()
+comment1.like()
+comment1.like()
+comment2.like()
+comment3.dislike()
+comment4.dislike()

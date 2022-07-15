@@ -1,4 +1,5 @@
 from django.views.generic import ListView, DetailView, UpdateView, CreateView
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 from .models import Post
 from .filters import PostFilter
@@ -13,14 +14,16 @@ class NewsList(ListView):
     paginate_by = 10
 
 
-class PostCreateView(CreateView):
+class PostCreateView(PermissionRequiredMixin, CreateView):
     template_name = 'post_create.html'
     form_class = PostForm
+    permission_required = ('news.add_post',)
 
 
-class PostUpdateView(UpdateView):
+class PostUpdateView(PermissionRequiredMixin, UpdateView):
     template_name = 'post_create.html'
     form_class = PostForm
+    permission_required = ('news.edit_post',)
 
     def get_object(self, **kwargs):
         id = self.kwargs.get('pk')
